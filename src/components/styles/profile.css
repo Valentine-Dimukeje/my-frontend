@@ -1,0 +1,125 @@
+/* General Page Styling */
+.profile-page {
+  background-color: #0d1b2a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  color: #fff;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Profile Card */
+.profile-card {
+  background: linear-gradient(145deg, #1b263b, #162036);
+  padding: 2.5rem;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  animation: fadeInUp 0.6s ease;
+}
+
+/* Heading */
+.profile-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #f8f9fa;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 10px;
+}
+
+/* Info Rows */
+.profile-info {
+  margin-bottom: 1.2rem;
+}
+
+.profile-info strong {
+  display: inline-block;
+  width: 140px;
+  color: #ffcc70;
+}
+
+.profile-info span {
+  color: #e5e5e5;
+}
+
+/* Wallet Section */
+.wallet-section {
+  margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.wallet-section h3 {
+  margin-bottom: 0.8rem;
+  color: #ffcc70;
+}
+
+/* Devices List */
+.devices-section {
+  margin-top: 1.8rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.devices-section h3 {
+  margin-bottom: 0.8rem;
+  color: #70d6ff;
+}
+
+.devices-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.devices-section li {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 0.8rem;
+  border-radius: 10px;
+  margin-bottom: 0.6rem;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.devices-section li:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Loading Animation */
+.loading-text {
+  text-align: center;
+  color: #70d6ff;
+  font-size: 1.1rem;
+  animation: blink 1.2s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Fade-in Animation */
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 1.5rem;
+  }
+
+  .profile-heading {
+    font-size: 1.5rem;
+  }
+
+  .profile-info strong {
+    width: 120px;
+  }
+}

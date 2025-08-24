@@ -1,0 +1,110 @@
+.withdraw-page {
+  background-color: #0d1b2a;
+  padding: 2rem;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.withdraw-card {
+  background: #1b263b;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.withdraw-form input,
+.withdraw-form select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 20px;
+  border: none;
+  border-radius: 6px;
+  background: #0d1b2a;
+  color: #fff;
+}
+
+.primary-btn {
+  background: linear-gradient(90deg, #ff4b2b, #ff416c);
+  color: white;
+  padding: 12px;
+  border: none;
+  width: 100%;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.primary-btn:hover {
+  background: linear-gradient(90deg, #ff416c, #ff4b2b);
+}
+
+.review-box {
+  background: #102841;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.review-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #334;
+}
+
+.review-item.total {
+  font-weight: bold;
+  color: #f5c518;
+  border-bottom: none;
+}
+
+.success-toast {
+  background-color: #28a745;
+  padding: 12px;
+  border-radius: 6px;
+  color: white;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* ↓↓↓ FIXED HISTORY BELOW THE FORM ↓↓↓ */
+.history-section {
+  width: 100%;
+  max-width: 900px;
+  background: #1b263b;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.history-section h3 {
+  margin-bottom: 1rem;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #f5c518;
+  padding-bottom: 0.5rem;
+}
+
+.history-section table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #122b42;
+  color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.history-section th,
+.history-section td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #2a3f54;
+}
+
+.history-section tr:last-child td {
+  border-bottom: none;
+}

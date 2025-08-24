@@ -1,0 +1,96 @@
+.public-navbar {
+  background: #0c1322;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1rem;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar-right {
+  margin-left: auto;
+}
+
+.register-btn {
+  background: #00d4ff;
+  color: #0c1322;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-btn:hover {
+  background: #57858f;
+}
+
+/* Sidebar Menu (hidden by default) */
+.sidebar-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 250px;
+  height: 100%;
+  background: #0c1322;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  gap: 1rem;
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.sidebar-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+}
+
+.sidebar-menu a:hover {
+  color: #f1c40f;
+}
+
+.sidebar-menu.open {
+  left: 0;
+}
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #0d1321;
+  color: #fff;
+}
+
+.main-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #0d1321;
+}
+
+.page-container {
+  padding: 20px;
+  background: #0d1321;
+  flex: 1;
+}
+

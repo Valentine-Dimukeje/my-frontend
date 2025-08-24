@@ -1,0 +1,225 @@
+/* referral.css */
+
+.referral-page {
+  padding: 2rem;
+  color: #f8fafc;
+  background-color: #0f172a;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.page-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+/* Referral Box */
+.referral-box {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.referral-box h4 {
+  font-size: 1.125rem;
+  margin-bottom: 0.75rem;
+  color: #f1f5f9;
+}
+
+.link-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.link-group input {
+  flex: 1;
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid #334155;
+  border-radius: 0.5rem;
+}
+
+.link-group button {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: #38bdf8;
+  color: #0f172a;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.link-group button:hover {
+  background-color: #0ea5e9;
+}
+
+/* Share buttons */
+.share-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #334155;
+  color: #f1f5f9;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.share-btn:hover {
+  background-color: #475569;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 180px;
+  background-color: #1e293b;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid #334155;
+  text-align: center;
+}
+
+.stat-card h5 {
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.stat-card p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+/* Program Details */
+.program-details {
+  background-color: #1e293b;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #334155;
+  margin-bottom: 2rem;
+}
+
+.program-details h4 {
+  font-size: 1.125rem;
+  color: #f1f5f9;
+  margin-bottom: 0.75rem;
+}
+
+.program-details p {
+  font-size: 0.95rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* Table Section */
+.table-section h4 {
+  font-size: 1.125rem;
+  margin-bottom: 1rem;
+  color: #f1f5f9;
+}
+
+.referral-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #1e293b;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+
+.referral-table thead {
+  background-color: #0f172a;
+}
+
+.referral-table th,
+.referral-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #334155;
+  color: #e2e8f0;
+  text-align: left;
+}
+
+.referral-table th {
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+}
+
+.status-active {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #facc15;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .referral-page {
+    padding: 1rem;
+  }
+
+  .stats-grid {
+    flex-direction: column;
+  }
+
+  .stat-card {
+    width: 100%;
+  }
+
+  .link-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .link-group input,
+  .link-group button {
+    width: 100%;
+  }
+
+  .share-options {
+    flex-direction: column;
+  }
+
+  .referral-table th,
+  .referral-table td {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+  }
+}

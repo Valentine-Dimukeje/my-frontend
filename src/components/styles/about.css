@@ -1,0 +1,226 @@
+/* ====== GLOBAL LAYOUT ====== */
+.about-hero {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  overflow: hidden;
+}
+
+/* ====== BACKGROUND ELEMENTS ====== */
+.about-animated-bg .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+}
+
+.blob1 {
+  width: 350px;
+  height: 350px;
+  background: #0ff;
+  top: 15%;
+  left: 10%;
+}
+
+.blob2 {
+  width: 300px;
+  height: 300px;
+  background: #ff00f7;
+  bottom: 15%;
+  right: 10%;
+}
+
+.about-animated-bg .circle {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+}
+
+.circle1 {
+  top: 20%;
+  right: 30%;
+}
+
+.circle2 {
+  bottom: 25%;
+  left: 25%;
+}
+
+/* ====== HERO CONTENT ====== */
+.about-hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+}
+
+.about-hero-content h1 {
+  font-size: 3rem;
+  line-height: 1.2;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.about-hero-content h1 span {
+  color: #00e6ff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.about-hero-content p {
+  font-size: 1.2rem;
+  margin-top: 10px;
+  color: #dcdcdc;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+/* ====== MISSION SECTION ====== */
+.about-mission {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 10%;
+  gap: 50px;
+  flex-wrap: wrap;
+  background: #0c1322;
+  color: #fff;
+}
+
+.mission-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+.mission-content h2 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.mission-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #d1d1d1;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.mission-img {
+  flex: 1;
+  min-width: 280px;
+  max-width: 450px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
+}
+
+/* ====== TEAM SECTION ====== */
+.about-team {
+  padding: 80px 10%;
+  background: linear-gradient(180deg, #0c1322, #151f33);
+  text-align: center;
+  color: #fff;
+}
+
+.about-team h2 {
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+}
+
+.team-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-card img {
+  width: 100%;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  border: 3px solid #00e6ff;
+}
+
+.team-card h4 {
+  margin: 5px 0;
+  font-size: 1.2rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.team-card p {
+  font-size: 0.9rem;
+  color: #bbb;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ====== CTA SECTION ====== */
+.about-cta {
+  background: #00e6ff;
+  color: #0c1322;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.about-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.primary-btn {
+  background: #0c1322;
+  color: #fff;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary-btn:hover {
+  background: #111b2e;
+}
+
+/* ====== FOOTER ====== */
+.footer {
+  background: #0c1322;
+  text-align: center;
+  padding: 20px;
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* ====== RESPONSIVE ====== */
+@media (max-width: 768px) {
+  .about-hero-content h1 {
+    font-size: 2.3rem;
+  }
+
+  .about-mission {
+    padding: 60px 5%;
+    gap: 30px;
+  }
+
+  .mission-img {
+    max-width: 100%;
+  }
+
+  .about-cta h2 {
+    font-size: 1.6rem;
+  }
+}

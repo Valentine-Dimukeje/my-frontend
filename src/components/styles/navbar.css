@@ -1,0 +1,36 @@
+.navbar, .public-navbar {
+  background: #0c1322;
+  padding: 1rem 2rem;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;       /* ✅ makes navbar stay on top */
+  top: 0;                /* ✅ sticks it to the top */
+  left: 0;
+  width: 100%;           /* ✅ full width */
+  z-index: 1000;         /* ✅ stays above all content */
+}
+
+/* Add spacing so page content doesn't hide behind navbar */
+body {
+  padding-top: 70px;     /* adjust to your navbar height */
+}
+
+.navbar-content, .public-navbar .navbar-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.navbar-content a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+}
+
+.navbar-content a:hover {
+  color: #f1c40f;
+}

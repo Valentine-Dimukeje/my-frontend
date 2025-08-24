@@ -1,0 +1,133 @@
+.sidebar {
+  width: 250px;
+  background: #101826;
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  left: -250px;
+  top: 0;
+  transition: left 0.3s ease;
+  z-index: 1100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo {
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #fff;
+  cursor: pointer;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.sidebar-link {
+  padding: 0.8rem 1rem;
+  margin: 0.2rem 0;
+  text-decoration: none;
+  color: #cfd8dc;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar-link.active,
+.sidebar-link:hover {
+  background: #1c2a3b;
+  color: #fff;
+}
+
+.sidebar-footer {
+  padding: 1rem;
+}
+
+.logout-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background: #ff4d4f;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+.account-balance-box {
+  background: #d32f2f; /* Solid red color */
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px;
+  color: white;
+}
+
+.account-balance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wallet-text {
+  background: white;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.wallet-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-deposit,
+.btn-invest {
+  flex: 1;
+  text-align: center;
+  padding: 8px 5px;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-deposit {
+  background: #4a4ef4;
+  margin-right: 5px;
+}
+
+.btn-invest {
+  background: #16a34a;
+  margin-left: 5px;
+}

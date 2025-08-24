@@ -1,0 +1,300 @@
+/* === GLOBAL RESET === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: #0c1322;
+  color: #fff;
+  line-height: 1.6;
+}
+
+/* === HERO SECTION === */
+.hero {
+  position: relative;
+  height: 90vh;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.hero-content {
+  z-index: 10;
+  max-width: 800px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.hero-content h1 span {
+  color: #00ffc6;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.primary-btn {
+  background: linear-gradient(45deg, #00ffc6, #007bff);
+  color: #0c1322;
+  padding: 0.5rem 1rem;        /* Reduced padding */
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  max-width: 220px;            /* NEW */
+  width: 100%;                 /* Ensures it scales inside container */
+}
+
+
+.primary-btn:hover {
+  background: linear-gradient(45deg, #007bff, #00ffc6);
+  transform: scale(1.05);
+}
+
+/* === HERO BACKGROUND ANIMATION === */
+.hero-animated-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.blob {
+  position: absolute;
+  background: radial-gradient(circle, rgba(0,255,198,0.4) 0%, transparent 70%);
+  border-radius: 50%;
+  width: 400px;
+  height: 400px;
+  filter: blur(100px);
+}
+
+.blob1 {
+  top: -50px;
+  left: -50px;
+}
+
+.blob2 {
+  bottom: -50px;
+  right: -50px;
+}
+
+.circle {
+  position: absolute;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+
+.circle1 {
+  top: 20%;
+  left: 10%;
+}
+
+.circle2 {
+  bottom: 20%;
+  right: 15%;
+}
+
+/* === FLOATING CRYPTO ICONS === */
+.crypto-icon {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  opacity: 0.8;
+}
+
+.icon1 { top: 30%; left: 10%; }
+.icon2 { top: 60%; left: 25%; }
+.icon3 { top: 40%; right: 15%; }
+.icon4 { top: 70%; right: 25%; }
+
+/* === MARKET PRICES SECTION === */
+.market-prices {
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.market-prices h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.market-card {
+  background: rgba(255,255,255,0.05);
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.market-card:hover {
+  box-shadow: 0 10px 20px rgba(0,255,198,0.1);
+}
+
+.market-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.market-header img {
+  width: 45px;
+  height: 45px;
+}
+
+.price {
+  font-size: 1rem;
+}
+
+.price span.up {
+  color: #00ffc6;
+  font-weight: bold;
+}
+
+.price span.down {
+  color: #ff4d4d;
+  font-weight: bold;
+}
+
+/* === SPARKLINE === */
+.sparkline-container {
+  margin-top: 1rem;
+  height: 50px;
+}
+
+.no-data {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+/* === STATS SECTION === */
+.stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 3rem 1rem;
+  flex-wrap: wrap;
+  background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,255,198,0.1));
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat h2 {
+  font-size: 2rem;
+  color: #00ffc6;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.stat p {
+  color: #ccc;
+}
+
+/* === FOOTER === */
+.footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: rgba(0, 0, 0, 0.459);
+  font-size: 0.9rem;
+  color: #999;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.2rem;
+  }
+  .crypto-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Floating Chat Buttons */
+.chat-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.chat-btn {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chat-btn img {
+  width: 30px;
+  height: 30px;
+}
+
+.chat-btn:hover {
+  transform: scale(1.15);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.whatsapp {
+  background-color: #25D366;
+}
+
+.telegram {
+  background-color: #0088cc;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 198, 0.7);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(0, 255, 198, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 255, 198, 0);
+  }
+}

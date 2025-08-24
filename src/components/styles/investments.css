@@ -1,0 +1,92 @@
+.investments-page {
+  background: #0f172a; /* Dark theme */
+  min-height: 100vh;
+  padding: 2.5rem;
+  color: #f8fafc;
+}
+
+.page-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #f8fafc;
+}
+
+.investment-stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: #1e293b;
+  padding: 1.5rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  min-width: 220px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+.stat-box h3 {
+  font-size: 2rem;
+  color: #38bdf8;
+  margin-bottom: 0.3rem;
+}
+
+.stat-box p {
+  font-size: 0.95rem;
+  color: #cbd5e1;
+}
+
+/* TABLE STYLING */
+.table-container {
+  overflow-x: auto;
+  background: #1e293b;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.investments-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #f8fafc;
+  font-size: 0.95rem;
+}
+
+.investments-table thead {
+  background: #334155;
+}
+
+.investments-table th, 
+.investments-table td {
+  padding: 1rem;
+  text-align: center;
+}
+
+.investments-table tbody tr {
+  border-bottom: 1px solid #475569;
+}
+
+.investments-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.investments-table .active {
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.investments-table .inactive {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.empty-row td {
+  text-align: center;
+  padding: 2rem 0;
+  color: #94a3b8;
+}

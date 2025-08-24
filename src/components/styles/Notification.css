@@ -1,0 +1,37 @@
+/* src/components/common/Notification.css */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  min-width: 250px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  animation: slideIn 0.4s ease-out;
+  z-index: 9999;
+}
+
+.notification.info { background: #3498db; }
+.notification.success { background: #2ecc71; }
+.notification.error { background: #e74c3c; }
+.notification.warning { background: #f39c12; }
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
