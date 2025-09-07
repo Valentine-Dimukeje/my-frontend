@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../styles/Auth.css";
+import { API_BASE } from "../utils/config";
 import { useLoader } from "../dashboard/LoaderContext";
 
 function Register() {
@@ -22,7 +23,8 @@ function Register() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/auth/register/", {
+      // Register user
+      const res = await fetch(`${API_BASE}/api/auth/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -32,17 +34,18 @@ function Register() {
           first_name: form.full_name.split(" ")[0] || "",
           last_name: form.full_name.split(" ")[1] || "",
           phone: form.phone,
-          country: form.country, // just send what user typed
+          country: form.country,
         }),
       });
 
       if (!res.ok) {
+        console.error("Registration failed:", res.status);
         setLoading(false);
         return;
       }
 
       // Auto login after register
-      const loginRes = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+      const loginRes = await fetch(`${API_BASE}/api/auth/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -52,20 +55,21 @@ function Register() {
       });
 
       if (!loginRes.ok) {
+        console.error("Auto-login failed:", loginRes.status);
         setLoading(false);
         return;
       }
 
       const loginData = await loginRes.json();
+      console.log("Auto-login response:", loginData);
       localStorage.setItem("access", loginData.access);
       localStorage.setItem("refresh", loginData.refresh);
 
       setTimeout(() => {
         window.location.href = "/admin";
       }, 800);
-
     } catch (error) {
-      console.error(error);
+      console.error("Register error:", error);
     } finally {
       setLoading(false);
     }
@@ -97,7 +101,6 @@ function Register() {
           required
         />
 
-        {/* User types phone + country manually */}
         <input
           type="text"
           name="phone"
@@ -128,7 +131,9 @@ function Register() {
         <button type="submit" className="auth-btn">Register</button>
       </form>
 
-      <p>Already have an account? <a href="/login">Login</a></p>
+      <p>
+        Already have an account? <a href="/login">Login</a>
+      </p>
     </motion.div>
   );
 }

@@ -8,6 +8,8 @@ import { LoaderProvider, useLoader } from "./components/dashboard/LoaderContext"
 import GlobalLoader from "./components/dashboard/GlobalLoader";
 import { TransactionProvider } from "./components/dashboard/TransactionContext";
 import { NotificationProvider } from "./components/dashboard/NotificationProvider";
+import FloatingChat from "./components/dashboard/FloatingChat";
+
 
 
 import Home from "./components/public/Home";
@@ -33,6 +35,7 @@ function AppContent() {
   return (
     <>
       <GlobalLoader show={loading} />
+      <FloatingChat />
       <WalletProvider>
         <NotificationProvider>
         <TransactionProvider>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 import { useNotification } from "./NotificationProvider";  
 import "../styles/deposit.css";
 
@@ -20,9 +20,9 @@ function Deposit() {
   const { showNotification } = useNotification();
 
   const getWalletAddress = () => {
-    if (method === "USDT_TRX") return "TAsidNbKHMxWQ2KoCo6JSYw16Rz1mWhSJS";
-    if (method === "BTC") return "15CbXpqzMJP4wDUUsSEnXoo2zQEB2kTDEU";
-    if (method === "ETH") return "0x929283099ef4050c4c8f8ca868abd89039f486b5";
+    if (method === "USDT_TRX") return "TBBWQzu3ZqYfU4bvXa8pXmUr7tQ7PftCpq";
+    if (method === "BTC") return "12JZLuqCy5q4o43y5iRF588q2EEq2EPWgA";
+    if (method === "ETH") return "0x2258f21F0afe88880bcdb99FFc22bB04fF83d1bf";
     return "";
   };
 

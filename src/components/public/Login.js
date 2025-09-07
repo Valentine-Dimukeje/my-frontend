@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../styles/Auth.css";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
+import { API_BASE } from "../utils/config";
 import { useLoader } from "../dashboard/LoaderContext";
 
 function Login() {
@@ -11,36 +12,38 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true); // show global loader
+    setLoading(true);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/auth/login/", {
+      const res = await fetch(`${API_BASE}/api/auth/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: email, password }),
       });
 
       if (!res.ok) {
+        console.error("Login failed:", res.status);
         setLoading(false);
         return;
       }
 
       const data = await res.json();
+      console.log("Login response:", data); // 👀 Check tokens in console
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      const meRes = await authFetch("http://127.0.0.1:8000/api/auth/me/");
+      // Fetch user profile with token
+      const meRes = await authFetch(`${API_BASE}/api/auth/me/`);
       await meRes.json();
 
-      // Redirect after small delay for smoothness
+      // Redirect after small delay
       setTimeout(() => {
         window.location.href = "/admin";
       }, 800);
-
     } catch (error) {
-      console.error(error);
+      console.error("Login error:", error);
     } finally {
-      setLoading(false); // hide loader
+      setLoading(false);
     }
   };
 
@@ -69,7 +72,9 @@ function Login() {
         />
         <button type="submit" className="auth-btn">Login</button>
       </form>
-      <p>Don't have an account? <a href="/register">Register</a></p>
+      <p>
+        Don't have an account? <a href="/register">Register</a>
+      </p>
     </motion.div>
   );
 }

@@ -1,24 +1,28 @@
-.navbar, .public-navbar {
+:root {
+  --nav-h: 60px;  /* navbar height */
+}
+
+.navbar,
+.public-navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
   background: #0c1322;
-  padding: 1rem 2rem;
   color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
-
-  position: fixed;       /* ✅ makes navbar stay on top */
-  top: 0;                /* ✅ sticks it to the top */
-  left: 0;
-  width: 100%;           /* ✅ full width */
-  z-index: 1000;         /* ✅ stays above all content */
+  justify-content: space-between;
+  padding: 0 1rem;
+  z-index: 1000;
 }
 
-/* Add spacing so page content doesn't hide behind navbar */
+/* Push content down */
 body {
-  padding-top: 70px;     /* adjust to your navbar height */
+  padding-top: var(--nav-h); /* ✅ match navbar height */
 }
 
-.navbar-content, .public-navbar .navbar-content {
+.navbar-content,
+.public-navbar .navbar-content {
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -34,3 +38,9 @@ body {
 .navbar-content a:hover {
   color: #f1c40f;
 }
+
+/* Utility class to push content below navbar */
+.with-navbar {
+  margin-top: var(--nav-h);
+}
+

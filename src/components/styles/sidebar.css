@@ -1,11 +1,12 @@
+/* === Sidebar Base === */
 .sidebar {
   width: 250px;
   background: #101826;
   color: #fff;
   height: 100vh;
   position: fixed;
-  left: -250px;
   top: 0;
+  left: -250px;
   transition: left 0.3s ease;
   z-index: 1100;
   display: flex;
@@ -17,6 +18,21 @@
   left: 0;
 }
 
+/* === Overlay for Mobile === */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+/* === Header === */
 .sidebar-header {
   display: flex;
   justify-content: space-between;
@@ -34,11 +50,12 @@
 .close-btn {
   background: transparent;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #fff;
   cursor: pointer;
 }
 
+/* === Nav Links === */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
@@ -60,6 +77,50 @@
   color: #fff;
 }
 
+/* === Account Balance Box === */
+.account-balance-box {
+  background: #d32f2f;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 15px;
+  color: white;
+}
+
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+}
+
+.wallet-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.btn-deposit,
+.btn-invest {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: 6px;
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-deposit {
+  background: #4a4ef4;
+}
+
+.btn-invest {
+  background: #16a34a;
+}
+
+/* === Footer === */
 .sidebar-footer {
   padding: 1rem;
 }
@@ -74,60 +135,45 @@
   cursor: pointer;
 }
 
-.account-balance-box {
-  background: #d32f2f; /* Solid red color */
-  border-radius: 10px;
-  padding: 15px;
-  margin: 15px;
-  color: white;
-}
+/* === 📱 Responsive Fixes for Mobile === */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 80%;      /* 80% width on mobile */
+    left: -100%;     /* hide fully off-screen */
+  }
 
-.account-balance-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .sidebar.open {
+    left: 0;
+  }
 
-.wallet-text {
-  background: white;
-  color: #333;
-  padding: 2px 8px;
-  border-radius: 5px;
-  font-size: 12px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+  .account-balance-box {
+    font-size: 1rem;
+    margin: 10px;
+  }
 
-.wallet-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
-}
+  .wallet-row {
+    flex-direction: column;   /* stack balance rows */
+    align-items: flex-start;
+    gap: 4px;
+  }
 
-.wallet-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
+  .wallet-buttons {
+    flex-direction: column;   /* stack buttons */
+  }
 
-.btn-deposit,
-.btn-invest {
-  flex: 1;
-  text-align: center;
-  padding: 8px 5px;
-  border-radius: 6px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-}
+  .btn-deposit,
+  .btn-invest {
+    width: 100%;
+    margin: 5px 0;
+  }
 
-.btn-deposit {
-  background: #4a4ef4;
-  margin-right: 5px;
-}
+  .sidebar-link {
+    font-size: 1.1rem;
+    padding: 1rem;
+    width: 100%;
+  }
 
-.btn-invest {
-  background: #16a34a;
-  margin-left: 5px;
+  .sidebar-nav {
+    padding: 0.5rem;
+  }
 }

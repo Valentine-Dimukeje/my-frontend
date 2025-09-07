@@ -59,9 +59,9 @@ function About() {
         <h2>Meet Our Team</h2>
         <div className="team-grid">
           {[
-            { name: "Sarah Johnson", role: "CEO", img: "/images/team1.jpg" },
-            { name: "Mark Chen", role: "Lead Developer", img: "/images/team2.jpg" },
-            { name: "Emily Brown", role: "Data Analyst", img: "/images/team3.jpg" }
+            { name: "Sarah Johnson", role: "CEO", img: "/images/sara.jpeg" },
+            { name: "Mark Chen", role: "Lead Developer", img: "/images/mark.jpg" },
+            { name: "Emily Brown", role: "Data Analyst", img: "/images/emily.jpg" }
           ].map((member, index) => (
             <motion.div
               key={index}
@@ -89,7 +89,7 @@ function About() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <p>© 2025 Heritage Investment. All rights reserved.</p>
+        <p>© 2025 Heritage Investment Group. All rights reserved.</p>
       </footer>
     </>
   );

@@ -17,7 +17,7 @@ export async function authFetch(path, options = {}) {
 
   let res = await fetch(url, init);
 
-  // 🔄 If token expired, try refresh
+  // 🔄 Refresh if needed
   if (res.status === 401 && refresh) {
     const refreshRes = await fetch(`${BASE}/api/auth/token/refresh/`, {
       method: "POST",
@@ -28,23 +28,17 @@ export async function authFetch(path, options = {}) {
     if (refreshRes.ok) {
       const data = await refreshRes.json();
       access = data.access;
-
-      // ✅ Save new access token
       localStorage.setItem("access", access);
 
-      // Retry original request with new token
-      const retryInit = {
+      res = await fetch(url, {
         ...options,
         headers: {
           "Content-Type": "application/json",
           ...(options.headers || {}),
           Authorization: `Bearer ${access}`,
         },
-      };
-
-      res = await fetch(url, retryInit);
+      });
     } else {
-      // ❌ Refresh also failed → logout
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       window.location.href = "/login";
@@ -53,22 +47,4 @@ export async function authFetch(path, options = {}) {
   }
 
   return res;
-}
-
-// ✅ Fetch profile (wallet, username, email, etc.)
-export async function getProfile() {
-  const res = await authFetch("/api/auth/me/");
-  if (!res.ok) throw new Error("Failed to fetch profile");
-  return res.json();
-}
-
-// ✅ Deposit money
-export async function deposit(amount, method, tx_id) {
-  const res = await authFetch("/api/deposit/", {
-    method: "POST",
-    body: JSON.stringify({ amount, method, tx_id }),
-  });
-
-  if (!res.ok) throw new Error("Deposit failed");
-  return res.json();
 }

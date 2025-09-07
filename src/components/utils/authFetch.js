@@ -1,31 +1,50 @@
-export async function authFetch(url, options = {}) {
+// src/utils/authFetch.js
+import { API_BASE } from "./config";
+
+export async function authFetch(path, options = {}) {
+  const url = path.startsWith("http") ? path : `${API_BASE}${path}`;
+
   let access = localStorage.getItem("access");
   let refresh = localStorage.getItem("refresh");
 
-  if (!options.headers) options.headers = {};
-  options.headers["Authorization"] = `Bearer ${access}`;
-  options.headers["Content-Type"] = "application/json";
+  const init = {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {}),
+      ...(access ? { Authorization: `Bearer ${access}` } : {}),
+    },
+  };
 
-  let res = await fetch(url, options);
+  let res = await fetch(url, init);
 
-  // If access token expired, try refresh
   if (res.status === 401 && refresh) {
-    let refreshRes = await fetch("http://127.0.0.1:8000/api/auth/token/refresh/", {
+    const refreshRes = await fetch(`${API_BASE}/api/auth/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
     });
 
     if (refreshRes.ok) {
-      let data = await refreshRes.json();
-      localStorage.setItem("access", data.access);
-      options.headers["Authorization"] = `Bearer ${data.access}`;
-      res = await fetch(url, options); // retry original request
+      const data = await refreshRes.json();
+      access = data.access;
+      localStorage.setItem("access", access);
+
+      const retryInit = {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          ...(options.headers || {}),
+          Authorization: `Bearer ${access}`,
+        },
+      };
+
+      res = await fetch(url, retryInit);
     } else {
-      // Refresh failed — log out
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");
       window.location.href = "/login";
+      throw new Error("Session expired. Please log in again.");
     }
   }
 

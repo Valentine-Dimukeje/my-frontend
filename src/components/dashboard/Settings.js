@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 import "../styles/settings.css";
 
 function Settings() {

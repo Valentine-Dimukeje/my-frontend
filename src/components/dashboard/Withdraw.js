@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 import { useNotification } from "./NotificationProvider";  
 import "../styles/withdraw.css";
 

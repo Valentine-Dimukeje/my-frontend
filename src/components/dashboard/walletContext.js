@@ -1,6 +1,6 @@
 // dashboard/walletContext.js
 import React, { createContext, useCallback, useEffect, useState } from "react";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 
 export const WalletContext = createContext();
 

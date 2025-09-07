@@ -4,7 +4,7 @@ import { Share2, Copy } from 'lucide-react';
 import axios from 'axios';
 import '../styles/referral.css';
 
-const referralLink = 'https://heritageinvestmentgp.com/ref/12345';
+const referralLink = 'https://heritageinvestmentgrup.com/ref/12345';
 
 function Referral() {
   const [copied, setCopied] = useState(false);
@@ -21,7 +21,7 @@ function Referral() {
     const fetchReferrals = async () => {
       try {
         const token = localStorage.getItem('token'); // Adjust as needed
-        const res = await axios.get('https://api.heritageinvestmentgp.com/api/user/referrals', {
+        const res = await axios.get('https://api.heritageinvestmentgrup.com/api/user/referrals', {
           headers: { Authorization: `Bearer ${token}` }
         });
         setReferredUsers(res.data.referrals || []);

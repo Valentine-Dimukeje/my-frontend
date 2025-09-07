@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 import "../styles/investments.css";
 
 function Investments() {

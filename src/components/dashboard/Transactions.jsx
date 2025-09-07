@@ -1,6 +1,6 @@
 // src/pages/Transactions.jsx
 import { useEffect, useState } from "react";
-import { authFetch } from "../api"; // we’ll use the helper we made
+import { authFetch } from "../utils/authFetch"; // we’ll use the helper we made
 
 
 function Transactions() {

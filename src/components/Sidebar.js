@@ -26,60 +26,69 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   };
 
   return (
-    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-      <div className="sidebar-header">
-        <Link to="/" className="logo">Heritage Investment</Link>
-        <button className="close-btn" onClick={toggleSidebar}>✖</button>
-      </div>
+    <>
+      {/* === Overlay for mobile === */}
+      <div
+        className={`sidebar-overlay ${isOpen ? "active" : ""}`}
+        onClick={toggleSidebar}
+      ></div>
 
-      <div className="account-balance-box">
-        <div className="account-balance-header">
-          <h4>Account Balance</h4>
-          <span className="wallet-text">WALLET</span>
+      {/* === Sidebar === */}
+      <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+        <div className="sidebar-header">
+          <Link to="/" className="logo">Heritage Investment</Link>
+          <button className="close-btn" onClick={toggleSidebar}>✖</button>
         </div>
 
-        <div className="wallet-row total">
-          <span>💰 Total Balance</span>
-          <span>${formatMoney(totalBalance)}</span>
+        <div className="account-balance-box">
+          <div className="account-balance-header">
+            <h4>Account Balance</h4>
+            <span className="wallet-text">WALLET</span>
+          </div>
+
+          <div className="wallet-row total">
+            <span>💰 Total Balance</span>
+            <span>${formatMoney(totalBalance)}</span>
+          </div>
+
+          <div className="wallet-row">
+            <span>💳 Main Wallet</span>
+            <span>${formatMoney(walletBalance)}</span>
+          </div>
+
+          <div className="wallet-row">
+            <span>🏦 Profit Wallet</span>
+            <span>${formatMoney(profitBalance)}</span>
+          </div>
+
+          <div className="wallet-buttons">
+            <NavLink to="/admin/deposit" className="btn-deposit" onClick={toggleSidebar}>
+              Deposit
+            </NavLink>
+            <button className="btn-invest" onClick={handleInvestClick}>
+              Invest Now
+            </button>
+          </div>
         </div>
 
-        <div className="wallet-row">
-          <span>💳 Main Wallet</span>
-          <span>${formatMoney(walletBalance)}</span>
-        </div>
+        <nav className="sidebar-nav">
+          <NavLink to="/admin" className="sidebar-link" onClick={toggleSidebar}>📊 Dashboard</NavLink>
+          <NavLink to="/admin/plans" className="sidebar-link" onClick={toggleSidebar}>💼 Plans</NavLink>
+          <NavLink to="/admin/investments" className="sidebar-link" onClick={toggleSidebar}>📈 Investments</NavLink>
+          <NavLink to="/admin/deposit" className="sidebar-link" onClick={toggleSidebar}>💰 Deposit</NavLink>
+          <NavLink to="/admin/withdraw" className="sidebar-link" onClick={toggleSidebar}>💸 Withdraw</NavLink>
+          <NavLink to="/admin/profile" className="sidebar-link" onClick={toggleSidebar}>👤 Profile</NavLink>
+          <NavLink to="/admin/referral" className="sidebar-link" onClick={toggleSidebar}>🤝 Referral</NavLink>
+          <NavLink to="/admin/settings" className="sidebar-link" onClick={toggleSidebar}>⚙️ Settings</NavLink>
+        </nav>
 
-        <div className="wallet-row">
-          <span>🏦 Profit Wallet</span>
-          <span>${formatMoney(profitBalance)}</span>
-        </div>
-
-        <div className="wallet-buttons">
-          <NavLink to="/admin/deposit" className="btn-deposit" onClick={toggleSidebar}>
-            Deposit
-          </NavLink>
-          <button className="btn-invest" onClick={handleInvestClick}>
-            Invest Now
+        <div className="sidebar-footer">
+          <button className="logout-btn" onClick={handleLogout}>
+            🚪 Logout
           </button>
         </div>
-      </div>
-
-      <nav className="sidebar-nav">
-        <NavLink to="/admin" className="sidebar-link" onClick={toggleSidebar}>📊 Dashboard</NavLink>
-        <NavLink to="/admin/plans" className="sidebar-link" onClick={toggleSidebar}>💼 Plans</NavLink>
-        <NavLink to="/admin/investments" className="sidebar-link" onClick={toggleSidebar}>📈 Investments</NavLink>
-        <NavLink to="/admin/deposit" className="sidebar-link" onClick={toggleSidebar}>💰 Deposit</NavLink>
-        <NavLink to="/admin/withdraw" className="sidebar-link" onClick={toggleSidebar}>💸 Withdraw</NavLink>
-        <NavLink to="/admin/profile" className="sidebar-link" onClick={toggleSidebar}>👤 Profile</NavLink>
-        <NavLink to="/admin/referral" className="sidebar-link" onClick={toggleSidebar}>🤝 Referral</NavLink>
-        <NavLink to="/admin/settings" className="sidebar-link" onClick={toggleSidebar}>⚙️ Settings</NavLink>
-      </nav>
-
-      <div className="sidebar-footer">
-        <button className="logout-btn" onClick={handleLogout}>
-          🚪 Logout
-        </button>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 };
 

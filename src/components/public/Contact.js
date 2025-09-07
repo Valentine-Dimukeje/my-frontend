@@ -37,12 +37,12 @@ function Contact() {
           <motion.div className="info-card" whileHover={{ scale: 1.05 }}>
             <i className="fas fa-phone-alt"></i>
             <h4>Call Us</h4>
-            <p>+1 762 405 7926</p>
+            <p>+1 210 517 1278</p>
           </motion.div>
           <motion.div className="info-card" whileHover={{ scale: 1.05 }}>
             <i className="fas fa-envelope"></i>
             <h4>Email</h4>
-            <p>support@heritageinvestmentgp.com</p>
+            <p>support@heritageinvestmentgrup.com</p>
           </motion.div>
         </div>
 
@@ -58,7 +58,7 @@ function Contact() {
       {/* OPTIONAL MAP */}
       <section className="map-section">
         <iframe
-          title="Elon Musk Investment Map"
+          title="Heritage Investment Group Map"
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.886820555136!2d-74.01036228459542!3d40.70601597933156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a178af65d29%3A0x3e3a88b5dd0b2d07!2sWall%20St%2C%20New%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1614130686751!5m2!1sen!2sus"
           loading="lazy"
         ></iframe>

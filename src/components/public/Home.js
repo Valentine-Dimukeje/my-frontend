@@ -1,180 +1,151 @@
-import React, { useState, useEffect } from "react";
+// src/components/Home.js
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import CountUp from "react-countup";
-import { Sparklines, SparklinesLine } from "react-sparklines";
-import ActivityFeed from "./ActivityFeed"; // Import your news feed
+import ActivityFeed from "./ActivityFeed";
 import "../styles/home.css";
 
 function Home() {
-  const [prices, setPrices] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [coins, setCoins] = useState([]);
 
-  // Fetch live prices
   useEffect(() => {
-    let isMounted = true;
-
-    const fetchPrices = async () => {
-      try {
-        const res = await fetch(
-          "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,litecoin,solana,ripple,dogecoin&sparkline=true"
-        );
-        if (!res.ok) throw new Error("Failed to fetch data");
-        const data = await res.json();
-
-        if (isMounted) {
-          setPrices(data);
-          setLoading(false);
-        }
-      } catch (error) {
-        console.error("Error fetching market prices:", error);
-        if (isMounted) setLoading(false);
-      }
-    };
-
-    fetchPrices();
-    const interval = setInterval(fetchPrices, 30000);
-
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
+    fetch(
+      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum,binancecoin,litecoin,ripple&order=market_cap_desc&per_page=5&page=1&sparkline=false"
+    )
+      .then((res) => res.json())
+      .then((data) => setCoins(data))
+      .catch((err) => console.error("Error fetching market data:", err));
   }, []);
 
   return (
     <>
-      {/* NEWS TICKER */}
+      {/* === NEWSFEED === */}
       <ActivityFeed />
 
-      {/* HERO SECTION */}
-      <section
-        className="hero"
-        style={{
-          backgroundImage: `linear-gradient(rgba(12,19,34,0.8), rgba(12,19,34,0.8)), url(/images/EarthW.jpg)`
-        }}
-      >
-        <div className="hero-animated-bg">
-          {/* Floating blobs */}
+      {/* === HERO SECTION === */}
+      <section className="hero">
+        <div className="hero-overlay" />
+        <div className="hero-container">
+          {/* Text */}
           <motion.div
-            className="blob blob1"
-            animate={{ scale: [1, 1.2, 1] }}
-            transition={{ duration: 10, repeat: Infinity }}
-          />
-          <motion.div
-            className="blob blob2"
-            animate={{ scale: [1.2, 1, 1.2] }}
-            transition={{ duration: 12, repeat: Infinity }}
-          />
+            className="hero-text"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <h1>
+              Grow Your Wealth with <span>Heritage Investment</span>
+            </h1>
+            <p>
+              Secure investments. Sustainable profits. Start building your
+              financial future today with expert-backed strategies.
+            </p>
 
-          {/* Floating crypto icons */}
-          <motion.img
-            src="/images/btc.png"
-            alt="Bitcoin"
-            className="crypto-icon icon1"
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.img
-            src="/images/eth.png"
-            alt="Ethereum"
-            className="crypto-icon icon2"
-            animate={{ y: [10, -10, 10] }}
-            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.img
-            src="/images/sol.webp"
-            alt="Solana"
-            className="crypto-icon icon3"
-            animate={{ y: [-15, 15, -15] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.img
-            src="/images/xrp.jpg"
-            alt="XRP"
-            className="crypto-icon icon4"
-            animate={{ y: [15, -15, 15] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          />
+            <div className="hero-buttons">
+              {/* 🔹 Plain button, no navigation */}
+              <button className="btn btn-primary">Get Started</button>
+              <a href="#trust" className="btn btn-outline">
+                Learn More
+              </a>
+            </div>
+          </motion.div>
+
+          {/* Illustration */}
+          <motion.div
+            className="hero-illustration"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+          >
+            <img src="/images/invest.jpg" alt="Investment Growth" />
+          </motion.div>
         </div>
-
-        <motion.div
-          className="hero-content"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
-          <h1>
-            Grow Your Wealth With <span>Heritage Investment</span>
-          </h1>
-          <p>
-            Secure investments, maximum profits. Start building your future
-            today with our professional trading strategies.
-          </p>
-          <button className="primary-btn">Get Started</button>
-        </motion.div>
       </section>
 
-      {/* MARKET PRICES SECTION */}
+      {/* === LIVE MARKET SECTION === */}
       <section className="market-prices">
         <h2>Live Market Prices</h2>
         <div className="market-grid">
-          {loading ? (
-            <p>Loading live prices...</p>
-          ) : prices.length > 0 ? (
-            prices.map((coin) => (
+          {coins.length > 0 ? (
+            coins.map((coin) => (
               <motion.div
                 className="market-card"
                 key={coin.id}
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="market-header">
-                  <img
-                    src={coin.image || "/images/placeholder.png"}
-                    alt={coin.name}
-                  />
-                  <div>
-                    <h4>
-                      {coin.name} ({coin.symbol.toUpperCase()})
-                    </h4>
-                    <p className="price">
-                      ${coin.current_price?.toLocaleString() || "N/A"}{" "}
-                      <span
-                        className={
-                          coin.price_change_percentage_24h >= 0 ? "up" : "down"
-                        }
-                      >
-                        {coin.price_change_percentage_24h?.toFixed(2) || "0.00"}%
-                      </span>
-                    </p>
-                  </div>
+                  <img src={coin.image} alt={coin.name} />
+                  <h3>{coin.name}</h3>
                 </div>
-
-                {/* Sparkline */}
-                <div className="sparkline-container">
-                  {Array.isArray(coin.sparkline_in_7d?.price) &&
-                  coin.sparkline_in_7d.price.length > 0 ? (
-                    <Sparklines data={coin.sparkline_in_7d.price.slice(-24)}>
-                      <SparklinesLine
-                        color={
-                          coin.price_change_percentage_24h >= 0
-                            ? "green"
-                            : "red"
-                        }
-                        style={{ strokeWidth: 2, fill: "none" }}
-                      />
-                    </Sparklines>
-                  ) : (
-                    <p className="no-data">No data</p>
-                  )}
+                <div className="price">
+                  <p>${coin.current_price.toLocaleString()}</p>
+                  <span
+                    className={
+                      coin.price_change_percentage_24h > 0 ? "up" : "down"
+                    }
+                  >
+                    {coin.price_change_percentage_24h.toFixed(2)}%
+                  </span>
                 </div>
               </motion.div>
             ))
           ) : (
-            <p>No market data available</p>
+            <p>Loading market data...</p>
           )}
         </div>
       </section>
 
-      {/* STATS SECTION */}
+      {/* === TRUST SECTION === */}
+      <section id="trust" className="trust-section">
+        <div className="trust-header">
+          <h2>Trusted by Investors Worldwide</h2>
+          <p>
+            Heritage Investment empowers <strong>5,000+</strong> investors in{" "}
+            <strong>120+ countries</strong> with security, transparency, and
+            consistent growth.
+          </p>
+        </div>
+
+        <div className="trust-grid">
+          <motion.div className="trust-card" whileHover={{ scale: 1.05 }}>
+            <img src="/images/security.jpeg" alt="Security" />
+            <h3>Bank-Grade Security</h3>
+            <p>
+              Multi-layered protection, insurance coverage, and compliance with
+              international financial standards.
+            </p>
+          </motion.div>
+
+          <motion.div className="trust-card" whileHover={{ scale: 1.05 }}>
+            <img src="/images/returns.png" alt="Returns" />
+            <h3>Consistent Growth</h3>
+            <p>
+              Proven investment strategies designed for steady long-term
+              profitability.
+            </p>
+          </motion.div>
+
+          <motion.div className="trust-card" whileHover={{ scale: 1.05 }}>
+            <img src="/images/team.png" alt="Expert Team" />
+            <h3>Expert Guidance</h3>
+            <p>
+              A global team of financial analysts and advisors guiding every
+              decision.
+            </p>
+          </motion.div>
+
+          <motion.div className="trust-card" whileHover={{ scale: 1.05 }}>
+            <img src="/images/global.png" alt="Global Reach" />
+            <h3>Global Reach</h3>
+            <p>
+              Serving investors across 120+ countries with localized insights
+              and support.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* === STATS === */}
       <section className="stats">
         <div className="stat">
           <h2>
@@ -196,30 +167,53 @@ function Home() {
         </div>
       </section>
 
-      {/* Floating Chat Buttons */}
+      {/* === CALL TO ACTION === */}
+      <section className="cta">
+        <motion.div
+          className="cta-box"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          viewport={{ once: true }}
+        >
+          <h2>Start Growing Your Wealth Today</h2>
+          <p>
+            Join thousands of investors who trust Heritage Investment for their
+            financial success.
+          </p>
+          {/* Keep this one as a link to signup */}
+          <a href="/signup" className="btn btn-primary">
+            Create Your Account
+          </a>
+        </motion.div>
+      </section>
+
+      {/* === FLOATING CHAT BUTTONS === */}
       <div className="chat-buttons">
         <a
-          href="https://wa.me/17624057926"
+          href="https://wa.me/12105171278"
           target="_blank"
           rel="noopener noreferrer"
           className="chat-btn whatsapp"
+          aria-label="WhatsApp"
         >
           <img src="/images/Whatsapp.svg" alt="WhatsApp" />
         </a>
 
         <a
-          href="https://t.me/Mark_Chen5"
+          href="https://t.me/Markchen23"
           target="_blank"
           rel="noopener noreferrer"
           className="chat-btn telegram"
+          aria-label="Telegram"
         >
           <img src="/images/Telegram_logo.svg" alt="Telegram" />
         </a>
       </div>
 
-      {/* FOOTER */}
+      {/* === FOOTER === */}
       <footer className="footer">
-        <p>© 2025 Heritage Investment. All rights reserved.</p>
+        <p>© 2020 Heritage Investment Group. All rights reserved.</p>
       </footer>
     </>
   );

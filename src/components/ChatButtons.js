@@ -5,24 +5,27 @@ function ChatButtons() {
   return (
     <div className="chat-buttons">
       {/* WhatsApp */}
-      <a
-        href="https://wa.me/2348012345678" // Change number to yours
-        target="_blank"
-        rel="noopener noreferrer"
-        className="chat-btn whatsapp"
-      >
-        <img src="/images/whatsapp.png" alt="WhatsApp" />
-      </a>
+       <a
+          href="https://wa.me/12105171278"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="chat-btn whatsapp"
+          aria-label="WhatsApp"
+        >
+          <img src="/images/Whatsapp.svg" alt="WhatsApp" />
+        </a>
+
 
       {/* Telegram */}
       <a
-        href="https://t.me/YourTelegramUsername" // Change username to yours
-        target="_blank"
-        rel="noopener noreferrer"
-        className="chat-btn telegram"
-      >
-        <img src="/images/telegram.png" alt="Telegram" />
-      </a>
+          href="https://t.me/Markchen23"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="chat-btn telegram"
+          aria-label="Telegram"
+        >
+          <img src="/images/Telegram_logo.svg" alt="Telegram" />
+        </a>
     </div>
   );
 }

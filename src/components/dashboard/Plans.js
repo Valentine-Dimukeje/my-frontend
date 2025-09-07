@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/plans.css";
 import { FaGem, FaRocket, FaStar } from "react-icons/fa";
 import { WalletContext } from "./walletContext";
-import { authFetch } from "../api";
+import { authFetch } from "../utils/authFetch";
 
 const Plans = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
