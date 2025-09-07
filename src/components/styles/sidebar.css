@@ -1,74 +1,147 @@
 /* === Sidebar Base === */
 .sidebar {
-  width: 250px;
+  width: 260px;
+  max-width: 90vw;
   background: #101826;
   color: #fff;
-  height: 100vh;
   position: fixed;
   top: 0;
-  left: -250px;
-  transition: left 0.3s ease;
+  bottom: 0;          /* full height */
+  left: 0;             /* desktop fixed */
   z-index: 1100;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%); /* hidden on mobile */
+  overflow: hidden;              /* hide overflow */
 }
 
+/* Slide-in when open */
 .sidebar.open {
-  left: 0;
+  transform: translateX(0);
 }
 
-/* === Overlay for Mobile === */
+/* Overlay */
 .sidebar-overlay {
   display: none;
   position: fixed;
   top: 0; left: 0;
-  width: 100%; height: 100%;
+  width: 100%;
+  height: 100%;
   background: rgba(0,0,0,0.5);
-  z-index: 1000;
+  z-index: 1050;
 }
 
 .sidebar-overlay.active {
   display: block;
 }
 
-/* === Header === */
+/* Header */
 .sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 .logo {
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 1.2rem;
   color: #fff;
   text-decoration: none;
-  font-family: 'Courier New', Courier, monospace;
 }
 
 .close-btn {
+  display: none;
   background: transparent;
   border: none;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   color: #fff;
   cursor: pointer;
 }
 
-/* === Nav Links === */
+/* Scrollable content with subtle scrollbar */
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  scrollbar-width: thin;           /* Firefox */
+  scrollbar-color: rgba(255,255,255,0.2) transparent;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255,255,255,0.35);
+}
+
+/* Account Balance Box */
+.account-balance-box {
+  background: #d32f2f;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.account-balance-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.wallet-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.btn-deposit,
+.btn-invest {
+  flex: 1;
+  padding: 0.5rem 0;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-deposit { background: #4a4ef4; }
+.btn-invest { background: #16a34a; }
+
+/* Navigation Links */
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  padding: 1rem;
+  margin-top: 1rem;
 }
 
 .sidebar-link {
-  padding: 0.8rem 1rem;
-  margin: 0.2rem 0;
+  padding: 0.85rem 1rem;
+  margin: 0.3rem 0;
   text-decoration: none;
   color: #cfd8dc;
-  border-radius: 6px;
-  transition: background 0.2s;
+  border-radius: 8px;
+  transition: background 0.25s, color 0.25s;
 }
 
 .sidebar-link.active,
@@ -77,103 +150,35 @@
   color: #fff;
 }
 
-/* === Account Balance Box === */
-.account-balance-box {
-  background: #d32f2f;
-  border-radius: 10px;
-  padding: 15px;
-  margin: 15px;
-  color: white;
-}
-
-.wallet-row {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px 0;
-}
-
-.wallet-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 10px;
-}
-
-.btn-deposit,
-.btn-invest {
-  flex: 1;
-  text-align: center;
-  padding: 10px;
-  border-radius: 6px;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-}
-
-.btn-deposit {
-  background: #4a4ef4;
-}
-
-.btn-invest {
-  background: #16a34a;
-}
-
-/* === Footer === */
+/* Footer */
 .sidebar-footer {
   padding: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }
 
 .logout-btn {
   width: 100%;
   padding: 0.8rem;
-  background: #ff4d4f;
+  border-radius: 8px;
+  font-weight: 500;
   border: none;
-  border-radius: 6px;
-  color: white;
+  color: #fff;
+  background: #ff4d4f;
   cursor: pointer;
 }
 
-/* === 📱 Responsive Fixes for Mobile === */
-@media (max-width: 768px) {
+/* === Mobile Responsive === */
+@media (max-width: 1024px) {
   .sidebar {
-    width: 80%;      /* 80% width on mobile */
-    left: -100%;     /* hide fully off-screen */
+    transform: translateX(-100%);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.5);
   }
 
   .sidebar.open {
-    left: 0;
+    transform: translateX(0);
   }
 
-  .account-balance-box {
-    font-size: 1rem;
-    margin: 10px;
-  }
-
-  .wallet-row {
-    flex-direction: column;   /* stack balance rows */
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .wallet-buttons {
-    flex-direction: column;   /* stack buttons */
-  }
-
-  .btn-deposit,
-  .btn-invest {
-    width: 100%;
-    margin: 5px 0;
-  }
-
-  .sidebar-link {
-    font-size: 1.1rem;
-    padding: 1rem;
-    width: 100%;
-  }
-
-  .sidebar-nav {
-    padding: 0.5rem;
+  .close-btn {
+    display: block;
   }
 }
