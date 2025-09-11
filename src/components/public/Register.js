@@ -23,12 +23,11 @@ function Register() {
     setLoading(true);
 
     try {
-      // Register user
+      // Step 1: Register user
       const res = await fetch(`${API_BASE}/api/auth/register/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: form.email,
           email: form.email,
           password: form.password,
           first_name: form.full_name.split(" ")[0] || "",
@@ -39,17 +38,18 @@ function Register() {
       });
 
       if (!res.ok) {
-        console.error("Registration failed:", res.status);
+        const err = await res.json().catch(() => ({}));
+        console.error("Registration failed:", res.status, err);
         setLoading(false);
         return;
       }
 
-      // Auto login after register
+      // Step 2: Auto login after register
       const loginRes = await fetch(`${API_BASE}/api/auth/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: form.email,
+          username: form.email, // Django expects "username"
           password: form.password,
         }),
       });
@@ -61,12 +61,12 @@ function Register() {
       }
 
       const loginData = await loginRes.json();
-      console.log("Auto-login response:", loginData);
       localStorage.setItem("access", loginData.access);
       localStorage.setItem("refresh", loginData.refresh);
 
+      // Step 3: Redirect to dashboard
       setTimeout(() => {
-        window.location.href = "/admin";
+        window.location.href = "/admin"; // or "/dashboard" if that's your main app
       }, 800);
     } catch (error) {
       console.error("Register error:", error);
@@ -130,10 +130,7 @@ function Register() {
 
         <button type="submit" className="auth-btn">Register</button>
       </form>
-
-      <p>
-        Already have an account? <a href="/login">Login</a>
-      </p>
+      <p>Already have an account? <a href="/login">Login</a></p>
     </motion.div>
   );
 }

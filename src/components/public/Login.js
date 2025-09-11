@@ -15,6 +15,7 @@ function Login() {
     setLoading(true);
 
     try {
+      // Step 1: Login request
       const res = await fetch(`${API_BASE}/api/auth/login/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -22,23 +23,26 @@ function Login() {
       });
 
       if (!res.ok) {
-        console.error("Login failed:", res.status);
+        const err = await res.json().catch(() => ({}));
+        console.error("Login failed:", res.status, err);
         setLoading(false);
         return;
       }
 
       const data = await res.json();
-      console.log("Login response:", data); // 👀 Check tokens in console
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      // Fetch user profile with token
+      // Step 2: Fetch profile (optional)
       const meRes = await authFetch(`${API_BASE}/api/auth/me/`);
-      await meRes.json();
+      if (meRes.ok) {
+        const profile = await meRes.json();
+        console.log("Profile:", profile);
+      }
 
-      // Redirect after small delay
+      // Step 3: Redirect
       setTimeout(() => {
-        window.location.href = "/admin";
+        window.location.href = "/admin"; // or "/dashboard"
       }, 800);
     } catch (error) {
       console.error("Login error:", error);
@@ -72,9 +76,7 @@ function Login() {
         />
         <button type="submit" className="auth-btn">Login</button>
       </form>
-      <p>
-        Don't have an account? <a href="/register">Register</a>
-      </p>
+      <p>Don’t have an account? <a href="/register">Register</a></p>
     </motion.div>
   );
 }
