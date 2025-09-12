@@ -10,7 +10,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const formatMoney = (val) => (typeof val === "number" && !isNaN(val) ? val.toLocaleString() : "0");
 
   const handleInvestClick = () => {
-    navigate("/admin/plans");
+    navigate("/dashboard/plans");
     toggleSidebar();
   };
 
@@ -46,21 +46,21 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             <div className="wallet-row"><span>💳 Main</span><span>${formatMoney(walletBalance)}</span></div>
             <div className="wallet-row"><span>🏦 Profit</span><span>${formatMoney(profitBalance)}</span></div>
             <div className="wallet-buttons">
-              <NavLink to="/admin/deposit" className="btn-deposit" onClick={toggleSidebar}>Deposit</NavLink>
+              <NavLink to="/dashboard/deposit" className="btn-deposit" onClick={toggleSidebar}>Deposit</NavLink>
               <button className="btn-invest" onClick={handleInvestClick}>Invest Now</button>
             </div>
           </div>
 
           {/* Navigation */}
           <nav className="sidebar-nav">
-            <NavLink to="/admin" className="sidebar-link" onClick={toggleSidebar}>📊 Dashboard</NavLink>
-            <NavLink to="/admin/plans" className="sidebar-link" onClick={toggleSidebar}>💼 Plans</NavLink>
-            <NavLink to="/admin/investments" className="sidebar-link" onClick={toggleSidebar}>📈 Investments</NavLink>
-            <NavLink to="/admin/deposit" className="sidebar-link" onClick={toggleSidebar}>💰 Deposit</NavLink>
-            <NavLink to="/admin/withdraw" className="sidebar-link" onClick={toggleSidebar}>💸 Withdraw</NavLink>
-            <NavLink to="/admin/profile" className="sidebar-link" onClick={toggleSidebar}>👤 Profile</NavLink>
-            <NavLink to="/admin/referral" className="sidebar-link" onClick={toggleSidebar}>🤝 Referral</NavLink>
-            <NavLink to="/admin/settings" className="sidebar-link" onClick={toggleSidebar}>⚙️ Settings</NavLink>
+            <NavLink to="/dashboard" className="sidebar-link" onClick={toggleSidebar}>📊 Dashboard</NavLink>
+            <NavLink to="/dashboard/plans" className="sidebar-link" onClick={toggleSidebar}>💼 Plans</NavLink>
+            <NavLink to="/dashboard/investments" className="sidebar-link" onClick={toggleSidebar}>📈 Investments</NavLink>
+            <NavLink to="/dashboard/deposit" className="sidebar-link" onClick={toggleSidebar}>💰 Deposit</NavLink>
+            <NavLink to="/dashboard/withdraw" className="sidebar-link" onClick={toggleSidebar}>💸 Withdraw</NavLink>
+            <NavLink to="/dashboard/profile" className="sidebar-link" onClick={toggleSidebar}>👤 Profile</NavLink>
+            <NavLink to="/dashboard/referral" className="sidebar-link" onClick={toggleSidebar}>🤝 Referral</NavLink>
+            <NavLink to="/dashboard/settings" className="sidebar-link" onClick={toggleSidebar}>⚙️ Settings</NavLink>
           </nav>
         </div>
 

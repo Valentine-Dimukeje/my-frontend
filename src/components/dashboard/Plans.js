@@ -56,7 +56,7 @@ const Plans = () => {
 
   if (investAmount > walletBalance) {
     alert("❌ Not enough funds in your Main Wallet. Redirecting to deposit page...");
-    navigate("/admin/deposit");
+    navigate("/dashboard/deposit");
     return;
   }
 
@@ -80,7 +80,7 @@ const Plans = () => {
     await refreshWallet(); 
     setSelectedPlan(null);
     setAmount("");
-    navigate("/admin/investments"); 
+    navigate("/dashboard/investments"); 
   } catch (err) {
     alert("❌ " + err.message);
   } finally {

@@ -54,14 +54,14 @@ function AppContent() {
           {/* Dashboard Pages */}
           <Route element={<DashboardLayout />}>
             <Route path="/transactions" element={<Transactions />} />
-            <Route path="/admin" element={<Dashboard />} />
-            <Route path="/admin/plans" element={<Plans />} />
-            <Route path="/admin/investments" element={<Investments />} />
-            <Route path="/admin/deposit" element={<Deposit />} />
-            <Route path="/admin/withdraw" element={<Withdraw />} />
-            <Route path="/admin/profile" element={<Profile />} />
-            <Route path="/admin/referral" element={<Referral />} />
-            <Route path="/admin/settings" element={<Settings />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard/plans" element={<Plans />} />
+            <Route path="/dashboard/investments" element={<Investments />} />
+            <Route path="/dashboard/deposit" element={<Deposit />} />
+            <Route path="/dashboard/withdraw" element={<Withdraw />} />
+            <Route path="/dashboard/profile" element={<Profile />} />
+            <Route path="/dashboard/referral" element={<Referral />} />
+            <Route path="/dashboard/settings" element={<Settings />} />
           </Route>
         </Routes>
         </TransactionProvider>

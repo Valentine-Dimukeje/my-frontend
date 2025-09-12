@@ -12,7 +12,7 @@ function ChatButtons() {
           className="chat-btn whatsapp"
           aria-label="WhatsApp"
         >
-          <img src="/images/Whatsapp.svg" alt="WhatsApp" />
+          <img src="/images/WhatsApp.svg" alt="WhatsApp" />
         </a>
 
 

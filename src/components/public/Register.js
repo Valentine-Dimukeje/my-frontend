@@ -66,7 +66,7 @@ function Register() {
 
       // Step 3: Redirect to dashboard
       setTimeout(() => {
-        window.location.href = "/admin"; // or "/dashboard" if that's your main app
+        window.location.href = "/dashboard"; // or "/dashboard" if that's your main app
       }, 800);
     } catch (error) {
       console.error("Register error:", error);

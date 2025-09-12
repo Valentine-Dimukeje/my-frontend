@@ -42,7 +42,7 @@ function Login() {
 
       // Step 3: Redirect
       setTimeout(() => {
-        window.location.href = "/admin"; // or "/dashboard"
+        window.location.href = "/dashboard"; // or "/dashboard"
       }, 800);
     } catch (error) {
       console.error("Login error:", error);
