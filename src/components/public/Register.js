@@ -24,18 +24,19 @@ function Register() {
 
     try {
       // Step 1: Register user
-      const res = await fetch(`${API_BASE}/api/auth/register/`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: form.email,
-          password: form.password,
-          first_name: form.full_name.split(" ")[0] || "",
-          last_name: form.full_name.split(" ")[1] || "",
-          phone: form.phone,
-          country: form.country,
-        }),
-      });
+     const res = await fetch(`${API_BASE}/api/auth/register/`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    email: form.email,
+    password: form.password,
+    first_name: form.full_name.split(" ")[0] || "",
+    last_name: form.full_name.split(" ").slice(1).join(" ") || "",
+    phone: form.phone || "",
+    country: form.country || "",
+  }),
+});
+
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
