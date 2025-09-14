@@ -7,12 +7,16 @@ function Profile() {
 
   useEffect(() => {
     async function fetchProfile() {
-      const res = await authFetch("http://127.0.0.1:8000/api/auth/me/");
-      if (res.ok) {
-        const data = await res.json();
-        setProfile(data);
-      } else {
-        alert("Failed to load profile");
+      try {
+        const res = await authFetch("http://127.0.0.1:8000/api/auth/me/");
+        if (res.ok) {
+          const data = await res.json();
+          setProfile(data);
+        } else {
+          alert("Failed to load profile");
+        }
+      } catch (err) {
+        console.error("Error fetching profile:", err);
       }
     }
     fetchProfile();
@@ -32,25 +36,34 @@ function Profile() {
           <strong>Email:</strong> <span>{profile.email}</span>
         </div>
         <div className="profile-info">
-          <strong>Name:</strong> <span>{profile.first_name} {profile.last_name}</span>
+          <strong>Name:</strong>{" "}
+          <span>
+            {profile.first_name} {profile.last_name}
+          </span>
         </div>
 
         <div className="wallet-section">
           <h3>Wallets</h3>
-          <p><strong>Main Wallet:</strong> ${profile.profile.main_wallet}</p>
-          <p><strong>Profit Wallet:</strong> ${profile.profile.profit_wallet}</p>
+          <p>
+            <strong>Main Wallet:</strong> ${profile.main_wallet ?? 0}
+          </p>
+          <p>
+            <strong>Profit Wallet:</strong> ${profile.profit_wallet ?? 0}
+          </p>
         </div>
 
         <div className="devices-section">
           <h3>Connected Devices</h3>
-          {profile.devices.length === 0 ? (
+          {!profile.devices || profile.devices.length === 0 ? (
             <p>No devices connected.</p>
           ) : (
             <ul>
               {profile.devices.map((d, index) => (
                 <li key={index}>
                   {d.device_name} - {d.ip_address} <br />
-                  <small>Last active: {new Date(d.last_active).toLocaleString()}</small>
+                  <small>
+                    Last active: {new Date(d.last_active).toLocaleString()}
+                  </small>
                 </li>
               ))}
             </ul>

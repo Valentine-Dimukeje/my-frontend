@@ -1,8 +1,12 @@
-// src/api.js
-const BASE = "http://127.0.0.1:8000";
+import { API_BASE } from "./config";
 
+/**
+ * authFetch wraps fetch with JWT + credentials support.
+ * Automatically retries with refresh token if access expired.
+ */
 export async function authFetch(path, options = {}) {
-  const url = path.startsWith("http") ? path : `${BASE}${path}`;
+  const url = path.startsWith("http") ? path : `${API_BASE}${path}`;
+
   let access = localStorage.getItem("access");
   let refresh = localStorage.getItem("refresh");
 
@@ -13,16 +17,17 @@ export async function authFetch(path, options = {}) {
       ...(options.headers || {}),
       ...(access ? { Authorization: `Bearer ${access}` } : {}),
     },
+    credentials: "include",
   };
 
   let res = await fetch(url, init);
 
-  // 🔄 Refresh if needed
   if (res.status === 401 && refresh) {
-    const refreshRes = await fetch(`${BASE}/api/auth/token/refresh/`, {
+    const refreshRes = await fetch(`${API_BASE}/api/auth/token/refresh/`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ refresh }),
+      credentials: "include",
     });
 
     if (refreshRes.ok) {
@@ -30,14 +35,17 @@ export async function authFetch(path, options = {}) {
       access = data.access;
       localStorage.setItem("access", access);
 
-      res = await fetch(url, {
+      const retryInit = {
         ...options,
         headers: {
           "Content-Type": "application/json",
           ...(options.headers || {}),
           Authorization: `Bearer ${access}`,
         },
-      });
+        credentials: "include",
+      };
+
+      res = await fetch(url, retryInit);
     } else {
       localStorage.removeItem("access");
       localStorage.removeItem("refresh");

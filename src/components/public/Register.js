@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../styles/Auth.css";
-import { API_BASE } from "../utils/config";
+import { authFetch } from "../utils/authFetch";
 import { useLoader } from "../dashboard/LoaderContext";
 
 function Register() {
@@ -24,19 +24,17 @@ function Register() {
 
     try {
       // Step 1: Register user
-     const res = await fetch(`${API_BASE}/api/auth/register/`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    email: form.email,
-    password: form.password,
-    first_name: form.full_name.split(" ")[0] || "",
-    last_name: form.full_name.split(" ").slice(1).join(" ") || "",
-    phone: form.phone || "",
-    country: form.country || "",
-  }),
-});
-
+      const res = await authFetch("/api/auth/register/", {
+        method: "POST",
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password,
+          first_name: form.full_name.split(" ")[0] || "",
+          last_name: form.full_name.split(" ").slice(1).join(" ") || "",
+          phone: form.phone || "",
+          country: form.country || "",
+        }),
+      });
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
@@ -45,12 +43,11 @@ function Register() {
         return;
       }
 
-      // Step 2: Auto login after register
-      const loginRes = await fetch(`${API_BASE}/api/auth/login/`, {
+      // Step 2: Auto-login after registration
+      const loginRes = await authFetch("/api/auth/login/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          username: form.email, // Django expects "username"
+          username: form.email,
           password: form.password,
         }),
       });
@@ -66,9 +63,7 @@ function Register() {
       localStorage.setItem("refresh", loginData.refresh);
 
       // Step 3: Redirect to dashboard
-      setTimeout(() => {
-        window.location.href = "/dashboard"; // or "/dashboard" if that's your main app
-      }, 800);
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error("Register error:", error);
     } finally {
@@ -92,7 +87,6 @@ function Register() {
           onChange={handleChange}
           required
         />
-
         <input
           type="email"
           name="email"
@@ -101,7 +95,6 @@ function Register() {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="phone"
@@ -110,7 +103,6 @@ function Register() {
           onChange={handleChange}
           required
         />
-
         <input
           type="text"
           name="country"
@@ -119,7 +111,7 @@ function Register() {
           onChange={handleChange}
           required
         />
-
+      
         <input
           type="password"
           name="password"
@@ -128,7 +120,6 @@ function Register() {
           onChange={handleChange}
           required
         />
-
         <button type="submit" className="auth-btn">Register</button>
       </form>
       <p>Already have an account? <a href="/login">Login</a></p>
