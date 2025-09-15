@@ -23,7 +23,6 @@ function Register() {
     setLoading(true);
 
     try {
-      // Step 1: Register user
       const res = await authFetch("/api/auth/register/", {
         method: "POST",
         body: JSON.stringify({
@@ -44,26 +43,13 @@ function Register() {
         return;
       }
 
-      // Step 2: Auto-login after registration
-      const loginRes = await authFetch("/api/auth/login/", {
-        method: "POST",
-        body: JSON.stringify({
-          username: form.email,
-          password: form.password,
-        }),
-      });
+      const data = await res.json();
 
-      if (!loginRes.ok) {
-        console.error("Auto-login failed:", loginRes.status);
-        setLoading(false);
-        return;
-      }
+      // ✅ store tokens from backend response
+      localStorage.setItem("access", data.access);
+      localStorage.setItem("refresh", data.refresh);
 
-      const loginData = await loginRes.json();
-      localStorage.setItem("access", loginData.access);
-      localStorage.setItem("refresh", loginData.refresh);
-
-      // Step 3: Redirect to dashboard
+      // ✅ redirect to dashboard
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Register error:", error);
@@ -112,7 +98,6 @@ function Register() {
           onChange={handleChange}
           required
         />
-      
         <input
           type="password"
           name="password"
