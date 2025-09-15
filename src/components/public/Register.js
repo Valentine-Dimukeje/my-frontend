@@ -12,7 +12,7 @@ function Register() {
     phone: "",
     country: "",
   });
-
+  const [errorMsg, setErrorMsg] = useState(null); // 👈 track errors
   const { setLoading } = useLoader();
 
   const handleChange = (e) =>
@@ -21,15 +21,16 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMsg(null);
 
     try {
       const res = await authFetch("/api/auth/register/", {
         method: "POST",
-         headers: {
-           "Content-Type": "application/json",   // 👈 add this
+        headers: {
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: form.email, 
+          username: form.email,
           email: form.email,
           password: form.password,
           first_name: form.full_name.split(" ")[0] || "",
@@ -42,6 +43,19 @@ function Register() {
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
         console.error("Registration failed:", res.status, err);
+
+        // 👇 extract meaningful error message
+        if (err.errors) {
+          const messages = Object.entries(err.errors)
+            .map(([field, msgs]) => `${field}: ${msgs.join(", ")}`)
+            .join("\n");
+          setErrorMsg(messages);
+        } else if (err.message) {
+          setErrorMsg(err.message);
+        } else {
+          setErrorMsg("Registration failed. Please try again.");
+        }
+
         setLoading(false);
         return;
       }
@@ -56,6 +70,7 @@ function Register() {
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Register error:", error);
+      setErrorMsg("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -109,6 +124,9 @@ function Register() {
           onChange={handleChange}
           required
         />
+
+        {errorMsg && <p className="error-text">❌ {errorMsg}</p>} {/* 👈 show errors */}
+
         <button type="submit" className="auth-btn">Register</button>
       </form>
       <p>Already have an account? <a href="/login">Login</a></p>
