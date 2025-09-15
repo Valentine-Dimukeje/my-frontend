@@ -25,6 +25,9 @@ function Register() {
     try {
       const res = await authFetch("/api/auth/register/", {
         method: "POST",
+         headers: {
+           "Content-Type": "application/json",   // 👈 add this
+        },
         body: JSON.stringify({
           username: form.email, 
           email: form.email,
