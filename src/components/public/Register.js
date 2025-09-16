@@ -12,7 +12,7 @@ function Register() {
     phone: "",
     country: "",
   });
-  const [errorMsg, setErrorMsg] = useState(null); // 👈 track errors
+  const [errorMsg, setErrorMsg] = useState(null); // 👈 error state
   const { setLoading } = useLoader();
 
   const handleChange = (e) =>
@@ -44,16 +44,30 @@ function Register() {
         const err = await res.json().catch(() => ({}));
         console.error("Registration failed:", res.status, err);
 
-        // 👇 extract meaningful error message
+        // 👇 Convert Django errors → user-friendly text
         if (err.errors) {
+          const labelMap = {
+            email: "Email",
+            password: "Password",
+            username: "Username",
+            first_name: "First name",
+            last_name: "Last name",
+            phone: "Phone number",
+            country: "Country",
+          };
+
           const messages = Object.entries(err.errors)
-            .map(([field, msgs]) => `${field}: ${msgs.join(", ")}`)
+            .map(([field, msgs]) => {
+              const fieldName = labelMap[field] || field;
+              return `${fieldName}: ${msgs.join(", ")}`;
+            })
             .join("\n");
+
           setErrorMsg(messages);
         } else if (err.message) {
           setErrorMsg(err.message);
         } else {
-          setErrorMsg("Registration failed. Please try again.");
+          setErrorMsg("Registration failed. Please check your details.");
         }
 
         setLoading(false);
@@ -62,11 +76,11 @@ function Register() {
 
       const data = await res.json();
 
-      // ✅ store tokens from backend response
+      // ✅ store tokens
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      // ✅ redirect to dashboard
+      // ✅ redirect
       window.location.href = "/dashboard";
     } catch (error) {
       console.error("Register error:", error);
@@ -125,7 +139,8 @@ function Register() {
           required
         />
 
-        {errorMsg && <p className="error-text">❌ {errorMsg}</p>} {/* 👈 show errors */}
+        {/* 👇 show readable error messages */}
+        {errorMsg && <p className="error-text">❌ {errorMsg}</p>}
 
         <button type="submit" className="auth-btn">Register</button>
       </form>
