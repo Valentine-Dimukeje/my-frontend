@@ -3,6 +3,7 @@ import { useState } from "react";
 import "../styles/Auth.css";
 import { authFetch } from "../utils/authFetch";
 import { useLoader } from "../dashboard/LoaderContext";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const [form, setForm] = useState({
@@ -12,8 +13,9 @@ function Register() {
     phone: "",
     country: "",
   });
-  const [errorMsg, setErrorMsg] = useState(null); // 👈 error state
+  const [errorMsg, setErrorMsg] = useState(null);
   const { setLoading } = useLoader();
+  const navigate = useNavigate();
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,7 +46,6 @@ function Register() {
         const err = await res.json().catch(() => ({}));
         console.error("Registration failed:", res.status, err);
 
-        // 👇 Convert Django errors → user-friendly text
         if (err.errors) {
           const labelMap = {
             email: "Email",
@@ -80,8 +81,8 @@ function Register() {
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      // ✅ redirect
-      window.location.href = "/dashboard";
+      // ✅ navigate to dashboard
+      navigate("/dashboard");
     } catch (error) {
       console.error("Register error:", error);
       setErrorMsg("Something went wrong. Please try again later.");
@@ -139,7 +140,6 @@ function Register() {
           required
         />
 
-        {/* 👇 show readable error messages */}
         {errorMsg && <p className="error-text">❌ {errorMsg}</p>}
 
         <button type="submit" className="auth-btn">Register</button>

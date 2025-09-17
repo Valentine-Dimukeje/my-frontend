@@ -4,11 +4,13 @@ import "../styles/Auth.css";
 import { authFetch } from "../utils/authFetch";
 import { API_BASE } from "../utils/config";
 import { useLoader } from "../dashboard/LoaderContext";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { setLoading } = useLoader();
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -40,10 +42,8 @@ function Login() {
         console.log("Profile:", profile);
       }
 
-      // Step 3: Redirect
-      setTimeout(() => {
-        window.location.href = "/dashboard"; // or "/dashboard"
-      }, 800);
+      // Step 3: Navigate to dashboard
+      navigate("/dashboard");
     } catch (error) {
       console.error("Login error:", error);
     } finally {
