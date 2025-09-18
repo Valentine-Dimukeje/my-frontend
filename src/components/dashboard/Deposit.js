@@ -39,9 +39,10 @@ function Deposit() {
 
     try {
       const res = await authFetch("/api/deposit/", {
-        method: "POST",
-        body: JSON.stringify({ method, amount, tx_id: txId }),
-      });
+       method: "POST",
+       body: JSON.stringify({ method, amount: parseFloat(amount), tx_id: txId }),
+       });
+
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Deposit failed");

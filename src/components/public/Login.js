@@ -76,7 +76,12 @@ function Login() {
         />
         <button type="submit" className="auth-btn">Login</button>
       </form>
-      <p>Don’t have an account? <a href="/register">Register</a></p>
+      <div className="auth-footer">
+  <a href="/register" className="auth-link">Register</a>
+  <a href="/forgot-password" className="auth-link">Forgot Password?</a>
+</div>
+
+
     </motion.div>
   );
 }
