@@ -16,7 +16,8 @@ const Dashboard = () => {
   useEffect(() => {
     const load = async () => {
       try {
-        const res = await authFetch("http://127.0.0.1:8000/api/dashboard-summary/");
+        const res = await authFetch("https://api.heritageinvestmentgrup.com/api/dashboard-summary/");
+
         if (!res.ok) {
           console.error("❌ Unauthorized or failed fetch");
           return;
