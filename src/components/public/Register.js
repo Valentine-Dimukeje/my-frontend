@@ -20,7 +20,7 @@ function Register() {
   const { setLoading } = useLoader();
   const navigate = useNavigate();
 
-  // 🔑 Handle form change
+  // 🔑 Handle form changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
@@ -30,7 +30,7 @@ function Register() {
     }
   };
 
-  // 🔐 Password strength check
+  // 🔐 Password strength checker
   const checkStrength = (password) => {
     let score = 0;
     if (password.length >= 8) score++;
@@ -50,7 +50,7 @@ function Register() {
     }
   };
 
-  // 🚀 Register handler
+  // 🚀 Submit register form
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -79,7 +79,12 @@ function Register() {
       });
 
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
+        let err;
+        try {
+          err = await res.json();
+        } catch {
+          err = { message: "Server error. Please try again later." };
+        }
 
         if (err.errors) {
           const fieldFriendlyNames = {
@@ -132,6 +137,7 @@ function Register() {
         return;
       }
 
+      // ✅ Success
       const data = await res.json();
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
