@@ -114,3 +114,33 @@
   color: #1e40af;
   text-decoration: underline;
 }
+
+.error-box {
+  background: #ffe6e6;
+  border: 1px solid #ff4d4d;
+  color: #b30000;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+.success-box {
+  background: #e6ffed;
+  border: 1px solid #28a745;
+  color: #1a7a33;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+.strength {
+  margin-top: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.strength-1 { color: #d9534f; }   /* Weak */
+.strength-2 { color: #f0ad4e; }   /* Fair */
+.strength-3 { color: #5bc0de; }   /* Good */
+.strength-4 { color: #5cb85c; }   /* Strong */

@@ -10,27 +10,63 @@ function Register() {
     full_name: "",
     email: "",
     password: "",
+    confirmPassword: "",
     phone: "",
     country: "",
   });
   const [errorMsg, setErrorMsg] = useState(null);
+  const [successMsg, setSuccessMsg] = useState(null);
+  const [strength, setStrength] = useState(0);
   const { setLoading } = useLoader();
   const navigate = useNavigate();
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+  // 🔑 Handle form change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
 
+    if (name === "password") {
+      setStrength(checkStrength(value));
+    }
+  };
+
+  // 🔐 Password strength check
+  const checkStrength = (password) => {
+    let score = 0;
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+    return score;
+  };
+
+  const getStrengthLabel = () => {
+    switch (strength) {
+      case 1: return "Weak ❌";
+      case 2: return "Fair ⚠️";
+      case 3: return "Good ✅";
+      case 4: return "Strong 🔒";
+      default: return "";
+    }
+  };
+
+  // 🚀 Register handler
   const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
     setErrorMsg(null);
+    setSuccessMsg(null);
+
+    if (form.password !== form.confirmPassword) {
+      setErrorMsg("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const res = await authFetch("/api/auth/register/", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           username: form.email,
           email: form.email,
@@ -44,31 +80,52 @@ function Register() {
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        console.error("Registration failed:", res.status, err);
 
         if (err.errors) {
-          const labelMap = {
-            email: "Email",
+          const fieldFriendlyNames = {
+            email: "Email address",
             password: "Password",
-            username: "Username",
+            username: "Email address",
             first_name: "First name",
             last_name: "Last name",
             phone: "Phone number",
             country: "Country",
           };
 
-          const messages = Object.entries(err.errors)
+          const friendlyMessages = Object.entries(err.errors)
             .map(([field, msgs]) => {
-              const fieldName = labelMap[field] || field;
-              return `${fieldName}: ${msgs.join(", ")}`;
+              const fieldName = fieldFriendlyNames[field] || field;
+              return msgs
+                .map((msg) => {
+                  if (msg.includes("This field may not be blank")) {
+                    return `${fieldName} is required.`;
+                  }
+                  if (msg.includes("already exists")) {
+                    return `This ${fieldName.toLowerCase()} is already in use.`;
+                  }
+                  if (msg.includes("valid email")) {
+                    return `Please enter a valid email address.`;
+                  }
+                  if (msg.includes("at least 8 characters")) {
+                    return `Password must be at least 8 characters long.`;
+                  }
+                  if (msg.includes("too common")) {
+                    return `Please choose a stronger password.`;
+                  }
+                  if (msg.includes("entirely numeric")) {
+                    return `Password cannot be entirely numbers.`;
+                  }
+                  return `${fieldName}: ${msg}`;
+                })
+                .join(" ");
             })
             .join("\n");
 
-          setErrorMsg(messages);
+          setErrorMsg(friendlyMessages);
         } else if (err.message) {
           setErrorMsg(err.message);
         } else {
-          setErrorMsg("Registration failed. Please check your details.");
+          setErrorMsg("Registration failed. Please check your details and try again.");
         }
 
         setLoading(false);
@@ -76,13 +133,11 @@ function Register() {
       }
 
       const data = await res.json();
-
-      // ✅ store tokens
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      // ✅ navigate to dashboard
-      navigate("/dashboard");
+      setSuccessMsg("🎉 Account created successfully! Redirecting...");
+      setTimeout(() => navigate("/dashboard"), 2000);
     } catch (error) {
       console.error("Register error:", error);
       setErrorMsg("Something went wrong. Please try again later.");
@@ -98,6 +153,21 @@ function Register() {
       animate={{ opacity: 1, y: 0 }}
     >
       <h2>Create Your Account</h2>
+
+      {errorMsg && (
+        <div className="error-box">
+          ❌ {errorMsg.split("\n").map((line, idx) => (
+            <p key={idx}>{line}</p>
+          ))}
+        </div>
+      )}
+
+      {successMsg && (
+        <div className="success-box">
+          ✅ <p>{successMsg}</p>
+        </div>
+      )}
+
       <form className="auth-form" onSubmit={handleRegister}>
         <input
           type="text"
@@ -139,11 +209,23 @@ function Register() {
           onChange={handleChange}
           required
         />
-
-        {errorMsg && <p className="error-text">❌ {errorMsg}</p>}
+        {form.password && (
+          <div className={`strength strength-${strength}`}>
+            Password strength: {getStrengthLabel()}
+          </div>
+        )}
+        <input
+          type="password"
+          name="confirmPassword"
+          placeholder="Confirm Password"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          required
+        />
 
         <button type="submit" className="auth-btn">Register</button>
       </form>
+
       <p>Already have an account? <a href="/login">Login</a></p>
     </motion.div>
   );
