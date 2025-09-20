@@ -77,8 +77,8 @@ function Login() {
         <button type="submit" className="auth-btn">Login</button>
       </form>
       <div className="auth-footer">
-  <a href="/register" className="auth-link">Register</a>
-  <a href="/forgot-password" className="auth-link">Forgot Password?</a>
+            <a href="/register">Register</a>
+            <a href="/forgot-password">Forgot Password?</a>
 </div>
 
 

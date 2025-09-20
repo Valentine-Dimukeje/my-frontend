@@ -2,10 +2,10 @@ import React from "react";
 import "../styles/activityFeed.css";
 
 const feedData = [
-  "James invested $2,500",
-  "John invested $1,000",
-  "Chris cashed out $5,000",
-  "Kyrian cashed out $2,900",
+  "Walter invested $2,500",
+  "Rom invested $1,000",
+  "Keane cashed out $5,000",
+  "Rice cashed out $2,900",
   "George withdrew $5,000",
   "Amily invested $700",
   "Olivia earned $11,200",
