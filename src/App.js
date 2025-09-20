@@ -51,8 +51,8 @@ function AppContent() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-             <Route path="/forgot-password" element={<ForgotPassword />} /> 
-             <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} /> 
+            <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
 
           </Route>
 
@@ -70,7 +70,7 @@ function AppContent() {
           </Route>
         </Routes>
         </TransactionProvider>
-         </NotificationProvider>
+        </NotificationProvider>
       </WalletProvider>
     </>
   );

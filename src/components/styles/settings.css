@@ -128,7 +128,7 @@
   /* Sidebar becomes a smooth horizontal tab bar */
   .settings-sidebar {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow-x: auto;
     gap: 0.5rem;
     width: 100%;

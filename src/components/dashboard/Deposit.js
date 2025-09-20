@@ -84,7 +84,7 @@ function Deposit() {
                   min="10"
                   required
                 />
-                <span>USD</span>
+                <span className="flex ml-3 mb-4 px-2 py-3 rounded-lg">USD</span>
               </div>
 
               <label>Wallet Address:</label>
