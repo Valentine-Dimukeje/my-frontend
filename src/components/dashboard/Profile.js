@@ -29,6 +29,7 @@ function Profile() {
       <div className="profile-card">
         <h2 className="profile-heading">Account Profile</h2>
 
+        {/* Basic Info */}
         <div className="profile-info">
           <strong>Username:</strong> <span>{profile.username}</span>
         </div>
@@ -41,17 +42,39 @@ function Profile() {
             {profile.first_name} {profile.last_name}
           </span>
         </div>
+        <div className="profile-info">
+          <strong>Phone:</strong> <span>{profile.phone || "N/A"}</span>
+        </div>
+        <div className="profile-info">
+          <strong>Country:</strong>{" "}
+          <span>
+            {profile.country || "N/A"} {profile.flag || ""}
+          </span>
+        </div>
 
+        {/* Wallets */}
         <div className="wallet-section">
           <h3>Wallets</h3>
           <p>
-            <strong>Main Wallet:</strong> ${profile.main_wallet ?? 0}
+            <strong>Main Wallet:</strong> ${profile.main_wallet ?? "0.00"}
           </p>
           <p>
-            <strong>Profit Wallet:</strong> ${profile.profit_wallet ?? 0}
+            <strong>Profit Wallet:</strong> ${profile.profit_wallet ?? "0.00"}
+          </p>
+          <p>
+            <strong>Total Balance:</strong> ${profile.wallet_balance ?? "0.00"}
           </p>
         </div>
 
+        {/* Notifications */}
+        <div className="notifications-section">
+          <h3>Notifications</h3>
+          <p>Email: {profile.notifications?.email ? "✅ On" : "❌ Off"}</p>
+          <p>SMS: {profile.notifications?.sms ? "✅ On" : "❌ Off"}</p>
+          <p>System: {profile.notifications?.system ? "✅ On" : "❌ Off"}</p>
+        </div>
+
+        {/* Devices */}
         <div className="devices-section">
           <h3>Connected Devices</h3>
           {!profile.devices || profile.devices.length === 0 ? (
