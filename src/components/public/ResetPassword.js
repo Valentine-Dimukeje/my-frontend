@@ -2,37 +2,44 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { API_BASE } from "../utils/config";
+import "../styles/Auth.css";
 
 function ResetPassword() {
   const { uid, token } = useParams();
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
-  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState({ message: "", error: "" });
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus({ message: "", error: "" });
+
     if (password !== confirm) {
-      setMessage("❌ Passwords do not match!");
+      setStatus({ message: "", error: "❌ Passwords do not match!" });
       return;
     }
 
     try {
-      const res = await fetch(`${API_BASE}/api/auth/password-reset-confirm/`, {
+      const res = await fetch(`${API_BASE}/auth/password-reset-confirm/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ uid, token, password }),
       });
 
-      if (res.ok) {
-        setMessage("✅ Password reset successful! Redirecting...");
-        setTimeout(() => navigate("/login"), 2000);
-      } else {
-        const err = await res.json();
-        setMessage("❌ " + (err.error || "Failed to reset password."));
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || "Failed to reset password");
       }
+
+      setStatus({
+        message: "✅ Password reset successful! Redirecting...",
+        error: "",
+      });
+
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
-      setMessage("❌ Error: " + err.message);
+      setStatus({ message: "", error: err.message });
     }
   };
 
@@ -61,7 +68,9 @@ function ResetPassword() {
         />
         <button type="submit" className="auth-btn">Reset Password</button>
       </form>
-      {message && <p className="status-msg">{message}</p>}
+
+      {status.message && <p className="success-msg">{status.message}</p>}
+      {status.error && <p className="error-msg">{status.error}</p>}
     </motion.div>
   );
 }

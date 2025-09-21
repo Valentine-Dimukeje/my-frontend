@@ -1,34 +1,34 @@
-// src/auth/ForgotPassword.js
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "../styles/Auth.css";
 import { API_BASE } from "../utils/config";
+import "../styles/Auth.css";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [status, setStatus] = useState({ message: "", error: "" });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage("");
-    setError("");
+    setStatus({ message: "", error: "" });
 
     try {
-      const res = await fetch(`${API_BASE}/api/auth/password-reset/`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email }),
-     });
+      const res = await fetch(`${API_BASE}/auth/password-reset/`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.detail || "Something went wrong");
+        throw new Error(err.error || err.detail || "Unable to send reset link");
       }
 
-      setMessage("✅ Password reset email has been sent. Please check your inbox.");
+      setStatus({
+        message: "✅ Password reset email sent! Please check your inbox.",
+        error: "",
+      });
     } catch (err) {
-      setError(err.message);
+      setStatus({ message: "", error: err.message });
     }
   };
 
@@ -48,11 +48,13 @@ function ForgotPassword() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <button type="submit" className="auth-btn">Send Reset Link</button>
+        <button type="submit" className="auth-btn">
+          Send Reset Link
+        </button>
       </form>
 
-      {message && <p style={{ color: "green" }}>{message}</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {status.message && <p className="success-msg">{status.message}</p>}
+      {status.error && <p className="error-msg">{status.error}</p>}
 
       <p><a href="/login">⬅ Back to Login</a></p>
     </motion.div>
