@@ -65,7 +65,7 @@ function Contact() {
       </section>
 
       <footer className="footer">
-        <p>© 2025 H Investment. All rights reserved.</p>
+        <p>© 2020 H Investment. All rights reserved.</p>
       </footer>
     </>
   );

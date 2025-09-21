@@ -89,7 +89,7 @@ function About() {
 
       {/* FOOTER */}
       <footer className="footer">
-        <p>© 2025 Heritage Investment Group. All rights reserved.</p>
+        <p>© 2020 Heritage Investment Group. All rights reserved.</p>
       </footer>
     </>
   );
