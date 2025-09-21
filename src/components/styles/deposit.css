@@ -1,7 +1,7 @@
 .deposit-page {
-  background: #0f172a;
+  /* background: #0f172a; */
   min-height: 100vh;
-  padding: 2rem;
+  /* padding: 0.4rem; */
   color: #f1f5f9;
   display: flex;
   justify-content: center;
@@ -10,7 +10,7 @@
 
 .deposit-card {
   background: #1e293b;
-  padding: 2.5rem;
+  padding: 1rem;
   border-radius: 12px;
   width: 100%;
   max-width: 500px;
@@ -44,6 +44,8 @@
 
 .amount-field {
   display: flex;
+  align-items: center;
+  justify-items: center;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 1rem;
@@ -55,10 +57,16 @@
 }
 
 .amount-field span {
-  background: #334155;
-  padding: 0.8rem 1rem;
+  background: #38404b;
+  /* padding: 0.8rem 1rem; */
+  /* margin: 0 10px; */
+  height: fit-content;
+  width: fit-content;
   color: #f1f5f9;
   font-weight: bold;
+  /* display: flex; */
+  /* justify-items: center;
+  align-items: center; */
 }
 
 .readonly {

@@ -30,12 +30,12 @@ function Investments() {
     .reduce((sum, inv) => sum + parseFloat(inv.earnings || 0), 0);
 
   return (
-    <div className="investments-page">
+    <div className="investments-page p-4">
       <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        📈 Your Investments
+        <span className="text-2xl md:text-4xl">📈 Your Investments</span>
       </motion.h2>
 
-      <div className="investment-stats">
+      <div className="investment-stats mt-6">
         <motion.div className="stat-box" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <h3>${<CountUp end={totalActive} duration={2} />}</h3>
           <p>Total Active Investments</p>
@@ -48,22 +48,22 @@ function Investments() {
 
       <motion.div className="table-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <table className="investments-table">
-          <thead>
-            <tr>
+          <thead className="hidden md:table-header-group">
+            <tr className="block md:table-row">
               <th>Plan</th>
               <th>Amount</th>
               <th>Earnings</th>
               <th>Status</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="block md:table-row-group">
             {investments.length > 0 ? (
               investments.map((inv, index) => (
-                <tr key={index}>
-                  <td>{inv.plan}</td>
-                  <td>${inv.amount}</td>
-                  <td>${inv.earnings || 0}</td>
-                  <td className={inv.status === "Active" ? "active" : "inactive"}>{inv.status}</td>
+                <tr key={index} className="block md:table-row mb-4 md:mb-0 p-0">
+                  <td className="flex justify-between items-center p-2 md:table-cell"><span className="font-semibold block md:hidden">Plan</span> {inv.plan}</td>
+                  <td className="flex justify-between items-center p-2 md:table-cell"><span className="font-semibold block md:hidden">Amount</span>${inv.amount}</td>
+                  <td className="flex justify-between items-center p-2 md:table-cell"><span className="font-semibold block md:hidden">Earnings</span>${inv.earnings || 0}</td>
+                  <td className={`flex justify-between items-center p-2 md:table-cell ${inv.status === "Active" ? "active" : "inactive"}`}><span className="font-semibold block md:hidden">Status</span>{inv.status}</td>
                 </tr>
               ))
             ) : (
