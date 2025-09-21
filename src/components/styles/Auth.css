@@ -26,6 +26,13 @@
   border: 1px solid #ddd;
   border-radius: 6px;
   font-size: 1rem;
+  background: #fff;        /* ensures white background */
+  color: #000;             /* ensures black text is visible */
+  outline: none; 
+}
+
+.auth-form input::placeholder {
+  color: #777;  
 }
 
 .auth-btn {
