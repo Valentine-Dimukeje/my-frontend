@@ -12,21 +12,20 @@ function ForgotPassword() {
     setStatus({ message: "", error: "" });
 
     try {
-      const res = await fetch(`${API_BASE}/auth/password-reset/`, {
+      const res = await fetch(`${API_BASE}/api/auth/password-reset/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || err.detail || "Unable to send reset link");
+        throw new Error(data.error || data.detail || "Unable to send reset link");
       }
 
-      setStatus({
-        message: "✅ Password reset email sent! Please check your inbox.",
-        error: "",
-      });
+      // ✅ Always show backend "message"
+      setStatus({ message: data.message || "✅ Email sent!", error: "" });
     } catch (err) {
       setStatus({ message: "", error: err.message });
     }

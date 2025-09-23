@@ -10,7 +10,7 @@ import { TransactionProvider } from "./components/dashboard/TransactionContext";
 import { NotificationProvider } from "./components/dashboard/NotificationProvider";
 import FloatingChat from "./components/dashboard/FloatingChat";
 import ForgotPassword from "./components/public/ForgotPasswprd";
-import ResetPassword from "./components/public/ResetPassword";
+import PasswordResetConfirm from "./components/public/PasswordResetConfirm";
 // import "../src/components/styles/global.css"
 
 
@@ -52,7 +52,7 @@ function AppContent() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} /> 
-            <Route path="/reset-password/:uid/:token" element={<ResetPassword />} />
+            <Route path="/reset-password/:uid/:token" element={<PasswordResetConfirm />} />
 
           </Route>
 
