@@ -75,6 +75,26 @@
   margin: 0 auto 20px;
 }
 
+.password-field {
+  position: relative;
+}
+
+.password-field span {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #666;
+  user-select: none;
+}
+
+.password-field span:hover {
+  color: #000;
+}
+
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

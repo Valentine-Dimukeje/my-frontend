@@ -1,51 +1,55 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import "../styles/Auth.css";
-import { authFetch } from "../utils/authFetch";
 import { API_BASE } from "../utils/config";
 import { useLoader } from "../dashboard/LoaderContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+
   const { setLoading } = useLoader();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
     setLoading(true);
 
     try {
-      // Step 1: Login request
       const res = await fetch(`${API_BASE}/api/auth/login/`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: email, password }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: email, // ✅ REQUIRED by Django / SimpleJWT
+          password: password,
+        }),
       });
 
+      const data = await res.json().catch(() => ({}));
+
       if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        console.error("Login failed:", res.status, err);
-        setLoading(false);
+        setError(
+          data?.detail ||
+          data?.error ||
+          "Invalid email or password."
+        );
         return;
       }
 
-      const data = await res.json();
+      // ✅ Save tokens
       localStorage.setItem("access", data.access);
       localStorage.setItem("refresh", data.refresh);
 
-      // Step 2: Fetch profile (optional)
-      const meRes = await authFetch(`${API_BASE}/api/auth/me/`);
-      if (meRes.ok) {
-        const profile = await meRes.json();
-        console.log("Profile:", profile);
-      }
-
-      // Step 3: Navigate to dashboard
       navigate("/dashboard");
-    } catch (error) {
-      console.error("Login error:", error);
+    } catch (err) {
+      console.error("Login error:", err);
+      setError("Unable to login. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -56,32 +60,49 @@ function Login() {
       className="auth-container"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 0.6 }}
     >
-      <h2>Login</h2>
-      <form className="auth-form" onSubmit={handleLogin}>
+      <h2>Welcome Back</h2>
+
+      {error && <div className="error-box">❌ {error}</div>}
+
+      <form className="auth-form" onSubmit={handleLogin} noValidate>
         <input
           type="email"
-          placeholder="Email"
+          placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          autoComplete="email"
           required
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit" className="auth-btn">Login</button>
+
+        <div className="password-field">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            autoComplete="current-password"
+            required
+          />
+          <span
+            onClick={() => setShowPassword(!showPassword)}
+            role="button"
+            aria-label="Toggle password visibility"
+          >
+            {showPassword ? "Hide" : "Show"}
+          </span>
+        </div>
+
+        <button type="submit" className="auth-btn">
+          Login
+        </button>
       </form>
+
       <div className="auth-footer">
-            <a href="/register">Register</a>
-            <a href="/forgot-password">Forgot Password?</a>
-</div>
-
-
+        <Link to="/register">Create account</Link>
+        <Link to="/forgot-password">Forgot password?</Link>
+      </div>
     </motion.div>
   );
 }
