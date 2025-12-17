@@ -1,13 +1,13 @@
-export async function authFetch(url, options = {}) {
-  const token = localStorage.getItem("access");
+const response = await fetch(`${API_BASE}/api/auth/register/`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify(payload),
+});
 
-  return fetch(url, {
-    ...options,
-    headers: {
-      "Content-Type": "application/json",
-      ...(token && { Authorization: `Bearer ${token}` }),
-      ...options.headers,
-    },
-    credentials: "include",
-  });
-}
+const text = await response.text();
+
+console.log("RAW RESPONSE:", text);
+
+const data = JSON.parse(text);
